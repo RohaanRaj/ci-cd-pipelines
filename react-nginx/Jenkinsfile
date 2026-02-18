@@ -7,7 +7,7 @@ pipeline{
 		REGISTRY_NAME = "${DOCKER_HUB_USER}/${IMAGE_NAME}"
 
 		SONAR_PROJECT_KEY = "react-nginx-test"
-		SONAR_URL = "http://192.168.29.11:9000"
+		SONAR_URL = "http://192.168.29.10:9000"
 	}
 
 	stages {
