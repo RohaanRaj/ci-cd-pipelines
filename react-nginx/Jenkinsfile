@@ -27,13 +27,6 @@ pipeline{
 			}
 			}
 
-		stage('Build and Push Docker Image'){
-			environment{
-				DOCKER_IMAGE
-			}
-		}
-
-
 		}
 	}
 
