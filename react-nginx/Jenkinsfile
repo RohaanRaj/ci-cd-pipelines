@@ -1,32 +1,67 @@
 pipeline{
 	agent any
-	stages {
 
-		stage('checkout'){
+	environment{
+		DOCKER_HUB_USER = "rohaanraj"
+		IMAGE_NAME = "react-nginx-webapp"
+		REGISTRY_NAME = "${DOCKER_HUB_USER}/${IMAGE_NAME}"
+
+		SONAR_PROJECT_KEY = "react-nginx-test"
+		SONAR_URL = "http://192.168.29.11:9000"
+	}
+
+	stages {
+		stage("Initialize"){
 			steps{
-				sh 'echo passed'
+				echo "Starting build #${env.BUILD_NUMBER} for ${IMAGE_NAME}"
 			}
 		}
 
-		stage('Static code analysis'){
-			environment{
-				SONAR_URL = "http://192.168.29.11:9000"
-			}
+		stage("Static code analysis"){
 			steps{
-				dir('react-nginx'){
+				dir("react-nginx"){
 					script{
-						def scannerHome = tool 'SonarScanner'
-						withCredentials([string(credentialsId: 'sonarqube', variable: 'SONAR_TOKEN')]) {
+						def scannerHome = tool "SonarScanner"
+						withCredentials([string(credentialsId: "sonarqube", variable: "SONAR_TOKEN")]) {
 							sh "${scannerHome}/bin/sonar-scanner \
-									-Dsonar.projectKey=react-nginx-app \
+									-Dsonar.projectKey=${SONAR_PROJECT_KEY} \
 									-Dsonar.sources=. \
 									-Dsonar.host.url=${SONAR_URL} \
 									-Dsonar.token=${SONAR_TOKEN}"
+							}
 						}
 					}
 				}
 			}
+
+		stage("Build and Push Image"){
+			steps{
+				dir("react-nginx"){
+					script{
+						def appImage = docker.build("${REGISTRY_NAME}:${env.BUILD_NUMBER}")
+						def latestImage = docker.build("${REGISTRY_NAME}:latest")
+
+						docker.withRegistry("":, "docker-creds"){
+							appImage.push()
+							latestImage.push()
+						}
+					}
+				}
 			}
 		}
+
+		post{
+			success{
+				echo "Successfully pushed ${REGISTRY_NAME}:${env.BUILD_NUMBER} to Dockerhub"
+			}
+			failure{
+				echo "Build Failed. Check Sonarqube and DockerHub logs on server"
+			}
+			always{
+				cleanWs()
+			}
+		}
+
+	}
 }
 
