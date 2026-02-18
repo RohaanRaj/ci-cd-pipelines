@@ -41,7 +41,7 @@ pipeline{
 						def appImage = docker.build("${REGISTRY_NAME}:${env.BUILD_NUMBER}")
 						def latestImage = docker.build("${REGISTRY_NAME}:latest")
 
-						docker.withRegistry("":, "docker-creds"){
+						docker.withRegistry("", "docker-creds"){
 							appImage.push()
 							latestImage.push()
 						}
