@@ -1,0 +1,39 @@
+pipeline{
+	agent any
+	stages {
+
+		stage('checkout'){
+			steps{
+				sh 'echo passed'
+			}
+		}
+
+		stage('Static code analysis'){
+			environment{
+				SONAR_URL = "http://192.168.29.11:9000"
+			}
+			steps{
+				dir('react-nginx'){
+					withCredentials([string(credentialsId: 'sonarqube', variable: 'SONAR_TOKEN')]){
+					sh """
+					sonar-scanner \
+						-Dsonar.projectKey=react-nginx-app \
+						-Dsonar.sources=. \
+						-Dsonar.host.url=${SONAR_URL} \
+						-Dsonar.token=${SONAR_TOKEN}
+					"""
+					}
+				}
+			}
+			}
+
+		stage('Build and Push Docker Image'){
+			environment{
+				DOCKER_IMAGE
+			}
+		}
+
+
+		}
+	}
+
