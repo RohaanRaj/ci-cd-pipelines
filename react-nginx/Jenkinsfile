@@ -5,6 +5,8 @@ pipeline{
 		DOCKER_HUB_USER = "rohaanraj"
 		IMAGE_NAME = "react-nginx-webapp"
 		REGISTRY_NAME = "${DOCKER_HUB_USER}/${IMAGE_NAME}"
+		GIT_UNAME = "RohaanRaj"
+		GIT_URL = "RohaanRaj/ci-cd-pipelines.git"
 
 		SONAR_PROJECT_KEY = "react-nginx-test"
 		SONAR_URL = "http://192.168.29.10:9000"
@@ -40,12 +42,31 @@ pipeline{
 					script{
 						def appImage = docker.build("${REGISTRY_NAME}:${env.BUILD_NUMBER}")
 
-						docker.withRegistry("", "docker-creds"){
+						docker.withRegistry("https://registry.hub.docker.com", "docker-creds"){
 							appImage.push()
 							appImage.push("latest")
 						}
 					}
 				}
+			}
+		}
+
+		stage("Updating Deployment File"){
+			
+			environment {
+				MANIFESTS_PATH = "react-nginx/deployment-manifests/deployment.yaml"
+			}
+			steps{
+				withCredentials([string(credentialsId: "github-creds", variable: "GITHUB_CREDS")]){
+					sh """
+						git config user.email "rohanraj.madanu@gmail.com"
+						git config user.name "${GIT_UNAME}"
+						sed -i "s|image: ${REGISTRY_NAME}.*|image: ${REGISTRY_NAME}:${env.BUILD_NUMBER}|g" ${MANIFESTS_PATH}
+						git add ${MANIFESTS_PATH}
+						git commit -m "Updated Build Image to Version #${env.BUILD_NUMBER}"
+						git push https://${GITHUB_CREDS}@github.com/${GIT_URL} HEAD:master
+					"""
+			 }
 			}
 		}
 	}
