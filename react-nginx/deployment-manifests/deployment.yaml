@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
       - name: react-webapp 
-        image: rohaanraj/react-nginx-webapp:replaceImageTag
+        image: rohaanraj/react-nginx-webapp:1
         ports:
         - containerPort: 80
