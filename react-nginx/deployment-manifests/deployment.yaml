@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: react-deployment
+  labels:
+    app: react-webapp 
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: react-webapp
+  template:
+    metadata:
+      labels:
+        app: react-webapp
+    spec:
+      containers:
+      - name: react-webapp 
+        image: rohaanraj/react-nginx-webapp:replaceImageTag
+        ports:
+        - containerPort: 80
