@@ -14,16 +14,16 @@ phases:
   pre_build:
     commands:
       - echo "Installing dependencies"
-      - pip install -r day-14/simple-python-app/requirements.txt
+      - pip install -r simple-python-app/requirements.txt
       
   build:
     commands:
       - echo "changing directories"
-      - cd day-14/simple-python-app/
+      - cd simple-python-app/
       - echo "authenticating docker"
       - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin "$DOCKER_URL"
-      - docker build -t "$DOCKER_URL/rohaanraj/testing-codebuild:latest" .
-      - docker push "$DOCKER_URL/rohaanraj/testing-codebuild:latest"
+      - docker build -t "$DOCKER_URL/rohaanraj/testing-aws-cicd:latest" .
+      - docker push "$DOCKER_URL/rohaanraj/testing-aws-cicd:latest"
     
   post_build:
     commands:
