@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: result-page-deployment
+  labels:
+    app: result-page-deploy
+  namespace: voting-app
+
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: result
+
+  template:
+    metadata:
+      labels:
+        app: result 
+    spec:
+      containers:
+      - name: frontend-result
+        image: rohanraaj/votingapp_result
+        ports:
+          - name: UI 
+            containerPort: 80
+          - name: debug
+            containerPort: 9229
