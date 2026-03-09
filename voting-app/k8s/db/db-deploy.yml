@@ -21,7 +21,11 @@ spec:
       - name: postgres-db
         image:  postgres:15-alpine       
         ports:
-        - containerPort: 5432
+          - containerPort: 5432
+
+        volumeMounts:
+          - name: database
+            mountPath: /var/lib/postgresql/data
 
         env:
           - name: POSTGRES_USER
@@ -35,6 +39,12 @@ spec:
               secretKeyRef:
                 name: db-secret
                 key: POSTGRES_PASSWORD
+
+      volumes:
+      - name: database
+        emptyDir: {}
+
+
 
 
 

@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
       - name: backend-worker
-        image: rohanraaj/votingapp_worker
+        image: rohaanraj/votingapp_worker:v1
         ports:
         - containerPort: 80
 

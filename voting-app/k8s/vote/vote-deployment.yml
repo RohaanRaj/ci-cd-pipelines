@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
       - name: frontend-vote
-        image: rohanraaj/votingapp_vote
+        image: rohaanraj/votingapp_vote:v1
         ports:
         - containerPort: 80
 

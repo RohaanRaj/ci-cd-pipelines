@@ -4,6 +4,7 @@ metadata:
   name: db-service
   namespace: voting-app
 spec:
+  type: ClusterIP
   selector:
     app: db
   ports:

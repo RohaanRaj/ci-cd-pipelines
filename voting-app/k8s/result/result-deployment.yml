@@ -19,9 +19,9 @@ spec:
     spec:
       containers:
       - name: frontend-result
-        image: rohanraaj/votingapp_result
+        image: rohaanraj/votingapp_result:v2
         ports:
-          - name: UI 
+          - name: ui
             containerPort: 80
           - name: debug
             containerPort: 9229

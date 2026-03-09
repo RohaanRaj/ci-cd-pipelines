@@ -8,9 +8,10 @@ spec:
   selector:
     app: result
   ports:
-    - name: UI
+    - name: ui
       port: 8081
       targetPort: 80
+      nodePort: 30081
 
     - name: debug
       port: 9229
