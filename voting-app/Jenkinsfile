@@ -12,8 +12,8 @@ pipeline{
 		stage('Get commit SHA'){
 			steps{
 				script{
-					COMMIT_SHA = env.GIT_COMMIT.take(7)
-					echo "Commit SHA: ${COMMIT_SHA}"
+					env.COMMIT_SHA = env.GIT_COMMIT.take(7)
+					echo "Commit SHA: ${env.COMMIT_SHA}"
 				}
 			}
 		}
@@ -24,7 +24,7 @@ pipeline{
 					steps{
 						dir('voting-app'){
 							sh """
-								docker build -t vote:${COMMIT_SHA} vote
+								docker build -t vote:${env.COMMIT_SHA} vote
 							"""
 						}
 					}
@@ -33,7 +33,7 @@ pipeline{
 					steps{
 						dir('voting-app'){
 							sh """
-								docker build -t result:${COMMIT_SHA} result
+								docker build -t result:${env.COMMIT_SHA} result
 							"""
 						}
 					}
@@ -42,7 +42,7 @@ pipeline{
 					steps{
 						dir('voting-app'){
 							sh """
-								docker build -t worker:${COMMIT_SHA} worker
+								docker build -t worker:${env.COMMIT_SHA} worker
 							"""
 						}
 					}
@@ -67,13 +67,13 @@ pipeline{
 					ECR="889738907995.dkr.ecr.us-east-1.amazonaws.com"
 
 					sh '''
-					docker tag vote:${COMMIT_SHA} $ECR/vote:${COMMIT_SHA}
-					docker tag result:${COMMIT_SHA} $ECR/result:${COMMIT_SHA}
-					docker tag worker:${COMMIT_SHA} $ECR/worker:${COMMIT_SHA}
+					docker tag vote:${env.COMMIT_SHA} $ECR/vote:${env.COMMIT_SHA}
+					docker tag result:${env.COMMIT_SHA} $ECR/result:${env.COMMIT_SHA}
+					docker tag worker:${env.COMMIT_SHA} $ECR/worker:${env.COMMIT_SHA}
 
-					docker push $ECR/vote:${COMMIT_SHA}
-					docker push $ECR/result:${COMMIT_SHA}
-					docker push $ECR/worker:${COMMIT_SHA}
+					docker push $ECR/vote:${env.COMMIT_SHA}
+					docker push $ECR/result:${env.COMMIT_SHA}
+					docker push $ECR/worker:${env.COMMIT_SHA}
 					'''
 
 				}
