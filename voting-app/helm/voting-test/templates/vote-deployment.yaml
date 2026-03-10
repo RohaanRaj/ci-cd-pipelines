@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
       - name: frontend-vote
-        image: {{ .Values.vote.image }}
+        image: "{{ .Values.vote.image.repository }}:{{ .Values.vote.image.tag }}"
         ports:
         - containerPort: {{.Values.vote.containerPort }}
 

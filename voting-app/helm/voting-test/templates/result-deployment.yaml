@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
       - name: frontend-result
-        image: {{ .Values.result.image }}
+        image: "{{ .Values.result.image.repository }}:{{ .Values.result.image.tag }}"
         ports:
           - name: ui
             containerPort: {{ .Values.result.containerPort }}

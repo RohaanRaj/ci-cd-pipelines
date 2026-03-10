@@ -1,6 +1,8 @@
 vote:
   replicaCount: 2
-  image: rohaanraj/votingapp_vote:v1
+  image:     
+    repository: 889738907995.dkr.ecr.us-east-1.amazonaws.com/vote
+    tag: latest
   containerPort: 80
   service:
     type: NodePort
@@ -11,7 +13,9 @@ vote:
 
 result:
   replicaCount: 2
-  image: rohaanraj/votingapp_result:v2
+  image: 
+    repository: 889738907995.dkr.ecr.us-east-1.amazonaws.com/result
+    tag: latest
   containerPort: 80
   service:
     type: NodePort
@@ -26,7 +30,9 @@ result:
 
 worker:
   replicaCount: 3
-  image: rohaanraj/votingapp_worker:v1
+  image: 
+    repository: 889738907995.dkr.ecr.us-east-1.amazonaws.com/worker
+    tag: latest
   containerPort: 80
 
 

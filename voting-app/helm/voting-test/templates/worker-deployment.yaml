@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
       - name: backend-worker
-        image: {{ .Values.worker.image }}
+        image: "{{ .Values.worker.image.repository }}:{{ .Values.worker.image.tag }}"
         ports:
         - containerPort: {{ .Values.worker.containerPort }}
 
