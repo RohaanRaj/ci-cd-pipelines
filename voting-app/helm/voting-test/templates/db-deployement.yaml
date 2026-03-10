@@ -7,7 +7,7 @@ metadata:
   namespace: voting-app
 
 spec:
-  replicas: 1
+  replicas: {{ .Values.db.replicaCount }}
   selector:
     matchLabels:
       app: db
@@ -19,9 +19,9 @@ spec:
     spec:
       containers:
       - name: postgres-db
-        image:  postgres:15-alpine       
+        image: {{.Values.db.image }}
         ports:
-          - containerPort: 5432
+          - containerPort: {{ .Values.db.containerPort }}
 
         volumeMounts:
           - name: database
@@ -43,6 +43,7 @@ spec:
       volumes:
       - name: database
         emptyDir: {}
+
 
 
 

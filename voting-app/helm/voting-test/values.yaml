@@ -1,0 +1,50 @@
+vote:
+  replicaCount: 2
+  image: rohaanraj/votingapp_vote:v1
+  containerPort: 80
+  service:
+    type: NodePort
+    port: 8080
+    targetPort: 80
+    nodePort: 30880
+
+
+result:
+  replicaCount: 2
+  image: rohaanraj/votingapp_result:v2
+  containerPort: 80
+  service:
+    type: NodePort
+    ui:
+      port: 8081
+      targetPort: 80
+      nodePort: 30881
+    debug:
+      port: 9229
+      targetPort: 9229
+
+
+worker:
+  replicaCount: 3
+  image: rohaanraj/votingapp_worker:v1
+  containerPort: 80
+
+
+redis:
+  replicaCount: 1
+  image: redis:alpine
+  containerPort: 6379
+  service:
+    type: ClusterIP
+    targetPort: 6379
+
+postgres:
+  user: postgres
+
+db:
+  replicaCount: 1
+  image: postgres:15-alpine
+  containerPort: 5432
+  service:
+    type: ClusterIP
+    targetPort: 5432

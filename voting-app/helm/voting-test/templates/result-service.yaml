@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: result-page-service
+  namespace: voting-app
+spec:
+  type: {{ .Values.result.service.type }}
+  selector:
+    app: result
+  ports:
+    - name: ui
+      port: {{ .Values.result.service.ui.port }}
+      targetPort: {{ .Values.result.service.ui.targetPort }}
+      nodePort: {{.Values.result.service.ui.nodePort }}
+
+    - name: debug
+      port: {{ .Values.result.service.debug.port }}
+      targetPort: {{ .Values.result.service.debug.targetPort }}

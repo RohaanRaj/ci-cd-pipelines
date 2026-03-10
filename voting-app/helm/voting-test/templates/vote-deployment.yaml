@@ -7,7 +7,7 @@ metadata:
   namespace: voting-app
 
 spec:
-  replicas: 1
+  replicas: {{ .Values.vote.replicaCount }}
   selector:
     matchLabels:
       app: vote
@@ -19,7 +19,8 @@ spec:
     spec:
       containers:
       - name: frontend-vote
-        image: rohaanraj/votingapp_vote:v1
+        image: {{ .Values.vote.image }}
         ports:
-        - containerPort: 80
+        - containerPort: {{.Values.vote.containerPort }}
+
 

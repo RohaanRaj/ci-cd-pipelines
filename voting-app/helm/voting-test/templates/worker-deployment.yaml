@@ -7,7 +7,7 @@ metadata:
   namespace: voting-app
 
 spec:
-  replicas: 1
+  replicas: {{ .Values.worker.replicaCount }}
   selector:
     matchLabels:
       app: worker
@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
       - name: backend-worker
-        image: rohaanraj/votingapp_worker:v1
+        image: {{ .Values.worker.image }}
         ports:
-        - containerPort: 80
+        - containerPort: {{ .Values.worker.containerPort }}
 

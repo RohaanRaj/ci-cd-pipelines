@@ -4,5 +4,6 @@ metadata:
   name: db-config
   namespace: voting-app
 data:
-  POSTGRES_USER: "postgres"
+  POSTGRES_USER: {{ .Values.postgres.user | quote }}
+
 
