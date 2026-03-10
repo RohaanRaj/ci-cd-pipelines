@@ -4,7 +4,9 @@ pipeline{
 	stages{
 		stage('Verify WS'){
 			steps{
-				sh 'ls -R'
+				dir('voting-app'){
+					sh 'ls -R'
+				}
 			}
 		}
 	}
