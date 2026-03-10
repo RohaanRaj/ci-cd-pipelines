@@ -5,8 +5,57 @@ pipeline{
 		stage('Verify WS'){
 			steps{
 				dir('voting-app'){
-					sh 'ls -R'
+					sh 'pwd'
 				}
+			}
+		}
+		stage('Get commit SHA'){
+			steps{
+				script{
+					COMMIT_SHA = env.GIT_COMMIT.take(7)
+					echo "Commit SHA: ${COMMIT_SHA}"
+				}
+			}
+		}
+		stage('Build Images'){
+			parallel{
+
+				stage('Build Vote'){
+					steps{
+						dir('voting-app'){
+							sh """
+								docker build -t vote:${COMMIT_SHA} vote
+							"""
+						}
+					}
+				}
+				stage('Build Result'){
+					steps{
+						dir('voting-app'){
+							sh """
+								docker build -t result:${COMMIT_SHA} result
+							"""
+						}
+					}
+				}
+				stage('Build Worker'){
+					steps{
+						dir('voting-app'){
+							sh """
+								docker build -t worker:${COMMIT_SHA} worker
+							"""
+						}
+					}
+				}
+			}
+		}
+		
+		stage('Login to ECR'){
+			steps{
+				sh """
+				aws ecr get-login-password --region us-east-1 \
+				docker login --username AWS --password-stdin 889738907995.dkr.ecr.us-east-1.amazonaws.com
+				"""
 			}
 		}
 	}
