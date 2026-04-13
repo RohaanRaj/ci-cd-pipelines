@@ -91,7 +91,8 @@ pipeline{
 							git add values.yaml
 							git commit -m "Updated image tag " || true
 
-							git push https://${GITHUB_CREDS}@github.com/RohaanRaj/ci-cd-pipelines.git HEAD:master
+							git push https://rohaanraj:${GITHUB_CREDS}@github.com/RohaanRaj/ci-cd-pipelines.git master
+
 						"""
 					}
 				}
