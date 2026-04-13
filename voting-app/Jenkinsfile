@@ -82,7 +82,7 @@ pipeline{
 		stage('Update Helm charts'){
 			steps{
 				dir('voting-app/helm/voting-test'){
-					withCredentials([string(credentialsId: "github-creds", variable: "GITHUB_CREDS")]){
+					withCredentials([string(credentialsId: "github-creds", usernameVariable: "GIT_USER", passwordVariable: "GIT_TOKEN")]){
 						sh """
 							git config user.email "rohanraj.madanu@gmail.com"
 							git config user.name "rohanraj"
@@ -91,7 +91,7 @@ pipeline{
 							git add values.yaml
 							git commit -m "Updated image tag " || true
 
-							git push https://rohaanraj:${GITHUB_CREDS}@github.com/RohaanRaj/ci-cd-pipelines.git HEAD:master
+							git push https://${GIT_USER}:${GIT_TOKEN}@github.com/RohaanRaj/ci-cd-pipelines.git HEAD:master
 
 						"""
 					}
