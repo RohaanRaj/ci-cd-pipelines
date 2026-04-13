@@ -82,7 +82,7 @@ pipeline{
 		stage('Update Helm charts'){
 			steps{
 				dir('voting-app/helm/voting-test'){
-					withCredentials([string(credentialsId: "github-creds", usernameVariable: "GIT_USER", passwordVariable: "GIT_TOKEN")]){
+					withCredentials([UsernamePassword(credentialsId: "github-creds", usernameVariable: "GIT_USER", passwordVariable: "GIT_TOKEN")]){
 						sh """
 							git config user.email "rohanraj.madanu@gmail.com"
 							git config user.name "rohanraj"
