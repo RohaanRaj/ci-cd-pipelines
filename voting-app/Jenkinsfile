@@ -53,10 +53,10 @@ pipeline{
 		stage('Login to ECR'){
 			steps{
 				sh """
-				aws ecr get-login-password --region us-east-1 \
-        | docker login \
-        --username AWS \
-        --password-stdin 889738907995.dkr.ecr.us-east-1.amazonaws.com
+				aws ecr get-login-password --region ap-south-1 \
+				| docker login \
+				--username AWS \
+				--password-stdin 889738907995.dkr.ecr.ap-south-1.amazonaws.com
 				"""
 			}
 		}
@@ -64,7 +64,7 @@ pipeline{
 		stage('Push images to ECR'){
 			steps{
 				script{
-					def ECR="889738907995.dkr.ecr.us-east-1.amazonaws.com"
+					def ECR="889738907995.dkr.ecr.ap-south-1.amazonaws.com"
 
 					sh """
 					docker tag vote:${env.COMMIT_SHA} $ECR/vote:${env.COMMIT_SHA}
