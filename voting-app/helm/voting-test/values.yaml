@@ -2,7 +2,7 @@ vote:
   replicaCount: 2
   image:     
     repository: 889738907995.dkr.ecr.us-east-1.amazonaws.com/vote
-    tag: latest
+    tag: 845d1ad
   containerPort: 80
   service:
     type: NodePort
@@ -15,7 +15,7 @@ result:
   replicaCount: 2
   image: 
     repository: 889738907995.dkr.ecr.us-east-1.amazonaws.com/result
-    tag: latest
+    tag: 845d1ad
   containerPort: 80
   service:
     type: NodePort
@@ -32,7 +32,7 @@ worker:
   replicaCount: 3
   image: 
     repository: 889738907995.dkr.ecr.us-east-1.amazonaws.com/worker
-    tag: latest
+    tag: 845d1ad
   containerPort: 80
 
 
