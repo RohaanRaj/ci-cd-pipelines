@@ -1,7 +1,7 @@
 vote:
   replicaCount: 2
   image:     
-    repository: 889738907995.dkr.ecr.ap-south-1.amazonaws.com/vote
+    repository: 889738907995.dkr.ecr.ap-south-1.amazonaws.com/votingapp/vote
     tag: 47d394b
   containerPort: 80
   service:
@@ -14,7 +14,7 @@ vote:
 result:
   replicaCount: 2
   image: 
-    repository: 889738907995.dkr.ecr.ap-south-1.amazonaws.com/result
+    repository: 889738907995.dkr.ecr.ap-south-1.amazonaws.com/votingapp/result
     tag: 47d394b
   containerPort: 80
   service:
@@ -31,7 +31,7 @@ result:
 worker:
   replicaCount: 3
   image: 
-    repository: 889738907995.dkr.ecr.ap-south-1.amazonaws.com/worker
+    repository: 889738907995.dkr.ecr.ap-south-1.amazonaws.com/votingapp/worker
     tag: 47d394b
   containerPort: 80
 
