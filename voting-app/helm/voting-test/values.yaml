@@ -2,7 +2,7 @@ vote:
   replicaCount: 2
   image:     
     repository: 889738907995.dkr.ecr.ap-south-1.amazonaws.com/votingapp/vote
-    tag: 47d394b
+    tag: 68fab3d
   containerPort: 80
   service:
     type: NodePort
@@ -15,7 +15,7 @@ result:
   replicaCount: 2
   image: 
     repository: 889738907995.dkr.ecr.ap-south-1.amazonaws.com/votingapp/result
-    tag: 47d394b
+    tag: 68fab3d
   containerPort: 80
   service:
     type: NodePort
@@ -32,7 +32,7 @@ worker:
   replicaCount: 3
   image: 
     repository: 889738907995.dkr.ecr.ap-south-1.amazonaws.com/votingapp/worker
-    tag: 47d394b
+    tag: 68fab3d
   containerPort: 80
 
 
