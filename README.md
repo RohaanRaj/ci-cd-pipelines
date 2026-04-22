@@ -1,23 +1,23 @@
 # ci-cd-pipelines
 
-A collection of CI/CD pipeline implementations across different application stacks, demonstrating end-to-end DevOps workflows using Jenkins, Docker, Helm, and AWS.
+This repo is my collection of Pipelines that I have done starting from the basic ones like a simple react-nginx app all the way to a CI pipline with Jenkins that pushes images to AWS ECR. 
 
 ---
 
 ## Projects
 
-| Directory | Stack | Description |
+| Directory | Stack |
 |---|---|---|
-| `voting-app/` | Python · Node.js · .NET · Redis · PostgreSQL | Multi-service voting app deployed on AWS EKS with Fargate |
-| `react-express-mongodb/` | React · Express · MongoDB | Full-stack JS app with containerised CI pipeline |
-| `react-nginx/` | React · Nginx | Static frontend served via Nginx with Docker build pipeline |
-| `simple-python-app/` | Python | Minimal Python app demonstrating a basic Jenkins CI setup |
+| `voting-app/` | Python · Node.js · .NET · Redis · PostgreSQL | 
+| `react-express-mongodb/` | React · Express · MongoDB |
+| `react-nginx/` | React · Nginx |
+| `simple-python-app/` | Python |
 
 ---
 
 ## Featured: AWS EKS CI/CD Pipeline — Voting App
 
-The flagship project in this repo. A distributed, multi-service voting application deployed on **AWS EKS using Fargate** as serverless compute, with a fully automated CI/CD pipeline.
+Worked extensively on this project. A distributed, multi-service voting application deployed on **AWS EKS using Fargate** as serverless compute, with a fully automated CI/CD pipeline.
 
 ### Architecture
 
@@ -86,40 +86,6 @@ Jenkins Pipeline
 
 ---
 
-## Getting Started
-
-### 1. Clone the repo
-
-```bash
-git clone https://github.com/RohaanRaj/ci-cd-pipelines.git
-cd ci-cd-pipelines/voting-app
-```
-
-### 2. Deploy with Helm
-
-```bash
-# Install the application stack
-helm install voting-app ./helm/voting-app \
-  --namespace voting \
-  --create-namespace \
-  --set image.tag=<your-ecr-image-tag>
-```
-
-### 3. Apply ALB Ingress
-
-```bash
-kubectl apply -f k8s/ingress.yaml -n voting
-```
-
-### 4. Access the app
-
-Get the ALB DNS from:
-```bash
-kubectl get ingress -n voting
-```
-
----
-
 ## CI/CD Flow (How it Works)
 
 1. Developer pushes code to GitHub
@@ -165,8 +131,3 @@ A minimal Python Flask application demonstrating the basics of a Jenkins CI pipe
 ![Go](https://img.shields.io/badge/Go-00ADD8?style=flat&logo=go&logoColor=white)
 
 ---
-
-## Author
-
-**M Rohan Raj** — [github.com/RohaanRaj](https://github.com/RohaanRaj) · [linkedin.com/in/rohanraaj](https://linkedin.com/in/rohanraaj)
-
