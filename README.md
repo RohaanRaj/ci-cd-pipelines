@@ -7,7 +7,7 @@ This repo is my collection of Pipelines that I have done starting from the basic
 ## Projects
 
 | Directory | Stack |
-|---|---|---|
+|---|---|
 | `voting-app/` | Python · Node.js · .NET · Redis · PostgreSQL | 
 | `react-express-mongodb/` | React · Express · MongoDB |
 | `react-nginx/` | React · Nginx |
